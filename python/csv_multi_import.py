@@ -137,6 +137,8 @@ with open('/home/cuebong/Downloads/Data_csv/P02_C5S_R_rouge_VF_02.csv') as f:
 with open('/home/cuebong/Downloads/Data_csv/P02_C5W_R_rouge_VF_03.csv') as f:
     data(f,MPX19,MPY19,MPZ19)
     
+plt.ion()
+
 fig=plt.figure()
 plt.plot(MPX1,MPY1)
 plt.plot(MPX2,MPY2)
@@ -162,3 +164,5 @@ plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
 #plt.axis([0, 5, 0, 6])
 plt.show()
+
+plt.axis("equal")
