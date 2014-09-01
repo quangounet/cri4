@@ -48,18 +48,6 @@ MPZ14=[]
 MPX15=[]
 MPY15=[]
 MPZ15=[]
-MPX16=[]
-MPY16=[]
-MPZ16=[]
-MPX17=[]
-MPY17=[]
-MPZ17=[]
-MPX18=[]
-MPY18=[]
-MPZ18=[]
-MPX19=[]
-MPY19=[]
-MPZ19=[]
 
 def data(m,g,h,j):
     n=defaultdict(list) #appends each value of each column into list
@@ -79,63 +67,50 @@ def data(m,g,h,j):
         h.append((RShouY[i]+LShouY[i])/2)
         j.append((RShouZ[i]+LShouZ[i])/2)
     
-
-with open('/home/cuebong/Downloads/Data_csv/C01_C1N_L_RS_D40.csv') as f:
+with open('/home/cuebong/Downloads/Data_csv/C01_C4N_L_bleu_BF_02.csv') as f:
     data(f,MPX1,MPY1,MPZ1)
 
-with open('/home/cuebong/Downloads/Data_csv/C01_C4N_L_bleu_BF_02.csv') as f:
+with open('/home/cuebong/Downloads/Data_csv/C01_C5N_L_bleu_BF_02.csv') as f:
     data(f,MPX2,MPY2,MPZ2)
 
-with open('/home/cuebong/Downloads/Data_csv/C01_C5N_L_bleu_BF_02.csv') as f:
-    data(f,MPX3,MPY3,MPZ3)
-
-with open('/home/cuebong/Downloads/Data_csv/C02_C1W_L_CO_D20.csv') as f:
-    data(f,MPX4,MPY4,MPZ4)
-
 with open('/home/cuebong/Downloads/Data_csv/C02_C3N_S_vert_VF_01.csv') as f:
-    data(f,MPX5,MPY5,MPZ5)
+    data(f,MPX3,MPY3,MPZ3)
     
 with open('/home/cuebong/Downloads/Data_csv/C02_C5E_L_bleu_VF_01.csv') as f:
-    data(f,MPX6,MPY6,MPZ6)
-
-with open('/home/cuebong/Downloads/Data_csv/P01_C2S_R_RS_D20.csv') as f:
-    data(f,MPX7,MPY7,MPZ7)
+    data(f,MPX4,MPY4,MPZ4)
 
 with open('/home/cuebong/Downloads/Data_csv/P01_C4N_L_bleu_VF_02.csv') as f:
-    data(f,MPX8,MPY8,MPZ8)
+    data(f,MPX5,MPY5,MPZ5)
 
 with open('/home/cuebong/Downloads/Data_csv/P01_C4N_R_rouge_VF_01.csv') as f:
-    data(f,MPX9,MPY9,MPZ9)
+    data(f,MPX6,MPY6,MPZ6)
 
 with open('/home/cuebong/Downloads/Data_csv/P01_C4N_R_rouge_VF_02.csv') as f:
-    data(f,MPX10,MPY10,MPZ10)
+    data(f,MPX7,MPY7,MPZ7)
 
 with open('/home/cuebong/Downloads/Data_csv/P01_C5E_L_bleu_BF_02.csv') as f:
-    data(f,MPX11,MPY11,MPZ11)
+    data(f,MPX8,MPY8,MPZ8)
 
 with open('/home/cuebong/Downloads/Data_csv/P01_C5W_R_rouge_BF_02.csv') as f:
-    data(f,MPX12,MPY12,MPZ12)
-
-with open('/home/cuebong/Downloads/Data_csv/P02_C2S_R_RS_D40.csv') as f:
-    data(f,MPX13,MPY13,MPZ13)
+    data(f,MPX9,MPY9,MPZ9)
 
 with open('/home/cuebong/Downloads/Data_csv/P02_C3N_S_vert_BF_02.csv') as f:
-    data(f,MPX14,MPY14,MPZ14)
+    data(f,MPX10,MPY10,MPZ10)
 
 with open('/home/cuebong/Downloads/Data_csv/P02_C3N_S_vert_VF_03.csv') as f:
-    data(f,MPX15,MPY15,MPZ15)
+    data(f,MPX11,MPY11,MPZ11)
     
 with open('/home/cuebong/Downloads/Data_csv/P02_C4E_L_bleu_VF_01.csv') as f:
-    data(f,MPX16,MPY16,MPZ16)
+    data(f,MPX12,MPY12,MPZ12)
 
 with open('/home/cuebong/Downloads/Data_csv/P02_C5E_L_bleu_BF_03.csv') as f:
-    data(f,MPX17,MPY17,MPZ17)
+    data(f,MPX13,MPY13,MPZ13)
 
 with open('/home/cuebong/Downloads/Data_csv/P02_C5S_R_rouge_VF_02.csv') as f:
-    data(f,MPX18,MPY18,MPZ18)
+    data(f,MPX14,MPY14,MPZ14)
 
 with open('/home/cuebong/Downloads/Data_csv/P02_C5W_R_rouge_VF_03.csv') as f:
-    data(f,MPX19,MPY19,MPZ19)
+    data(f,MPX15,MPY15,MPZ15)
     
 plt.ion()
 
@@ -155,14 +130,8 @@ plt.plot(MPX12,MPY12)
 plt.plot(MPX13,MPY13)
 plt.plot(MPX14,MPY14)
 plt.plot(MPX15,MPY15)
-plt.plot(MPX16,MPY16)
-plt.plot(MPX17,MPY17)
-plt.plot(MPX18,MPY18)
-plt.plot(MPX19,MPY19)
 fig.suptitle('Midpoint Trajectories')
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
-#plt.axis([0, 5, 0, 6])
 plt.show()
-
 plt.axis("equal")
