@@ -54,3 +54,16 @@ def splinesToPlot(splines,xn,res):
         Y.append(S[0]+S[1]*h + S[2]*h**2 + S[3]*h**3)
    
     return X,Y
+
+def perform_spline(MPX,MPY,MPZ):
+    res=100
+    Nf=len(MPX)
+    t=range(0,Nf)
+    xsplines,xn=Splines(t,MPX)
+    ysplines,yn=Splines(t,MPY)
+    xx,yx=splinesToPlot(xsplines,xn,res)
+    xy,yy=splinesToPlot(ysplines,yn,res)
+    xline=plt.plot(xx,yx)
+    yline=plt.plot(xy,yy)
+    
+    return xx,yx,xy,yy,xline,yline
