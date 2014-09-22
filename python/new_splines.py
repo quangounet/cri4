@@ -1,25 +1,12 @@
-from splines_function import Splines
-from splines_function import splinesToPlot
 from extract_midpoint import data
-from normalize import normalize
-from collections import defaultdict
+from derivative import deriv
+from perform_splines import perform_spline
+from trajectory_deviation import traj_dev
 from decimal import * #importing decimal fixed point arithmetic
 getcontext().prec=6 #specifying decimal places to 6
-import csv
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import interpolate
-
-def perform_spline(MPX,MPY,MPZ):
-    time=range(0,len(MPX))
-    xinterp=interpolate.UnivariateSpline(time,MPX,s=0.000001)(time)
-    yinterp=interpolate.UnivariateSpline(time,MPY,s=0.000001)(time)
-    xline=plt.plot(time,xinterp)
-    yline=plt.plot(time,yinterp)
-    xvalues=xline[0].get_ydata()
-    yvalues=yline[0].get_ydata()
-
-    return time,xinterp,yinterp,xvalues,yvalues
 
 plt.ion() #turns on interactive mode
 fig1=plt.figure(1)
@@ -74,8 +61,7 @@ for i in xrange(0,nf):
     meanX.append(Decimal((X_axis1[i]+X_axis2[i]+X_axis3[i]))/3)
     meanY.append(Decimal((Y_axis1[i]+Y_axis2[i]+Y_axis3[i]))/3)
 
-
-print(nf)    
+    
 fig1.suptitle('Midpoint Trajectories')
 plt.xlabel('Time')
 plt.ylabel('X/Y Axis')
@@ -104,41 +90,41 @@ plt.ylabel('X/Y Axis')
 plt.show
 
 
-def traj_dev(Xtraj,Ytraj,Xmean,Ymean):
-    sum=0
-    for i in xrange(0,len(Xmean)):
-        x_term=Decimal(Xtraj[i])-Xmean[i]
-        y_term=Decimal(Ytraj[i])-Ymean[i]
-        x_sq=x_term*x_term
-        y_sq=y_term*y_term
-        sum=Decimal(sum)+x_sq+y_sq
-    TD=Decimal(sum/len(Xmean)).sqrt()
-
-    return TD
-
 TD1=traj_dev(X_axis1,Y_axis1,meanX,meanY)
 TD2=traj_dev(X_axis2,Y_axis2,meanX,meanY)
 TD3=traj_dev(X_axis3,Y_axis3,meanX,meanY)
-print(TD1,TD2,TD3)
 
-timeN=range(0,len(x1))
-timeN=np.array(timeN, dtype=np.float32).transpose()
-X_axis=np.array(x1, dtype=np.float32).transpose()
-time=np.gradient(timeN)[0]
-velocity1=np.gradient(X_axis,time)
+
+time1,vel_x1=deriv(x1)
+time1,vel_y1=deriv(y1)
+time2,vel_x2=deriv(x2)
+time2,vel_y2=deriv(y2)
+time3,vel_x3=deriv(x3)
+time3,vel_y3=deriv(y3)
+
+def resultant_profile(x,y):
+    val=[]
+    for i in xrange(0,len(x)):
+        x_term=x[i]*x[i]
+        y_term=y[i]*y[i]
+        a=(x_term+y_term)**0.5
+        val.append(a)
+
+    return val
+
+vel1=resultant_profile(vel_x1,vel_y1)
+vel2=resultant_profile(vel_x2,vel_y2)
+vel3=resultant_profile(vel_x3,vel_y3)
+
 plt.figure(4)
-plt.plot(timeN,velocity1)
+plt.plot(time1,vel1,time2,vel2,time3,vel3)
 
-timeO=range(0,len(MPX1))
-timeO=np.array(timeO,dtype=np.float32).transpose()
-MPX1=np.array(MPX1,dtype=np.float32).transpose()
-frames=np.gradient(timeO)[0]
-velocityO=np.gradient(MPX1,frames)
-plt.plot(timeO, velocityO)
+time1,acc_x1=deriv(vel_x1)
+time1,acc_y1=deriv(vel_y1)
+time2,acc_x2=deriv(vel_x2)
+time2,acc_y2=deriv(vel_y2)
+time3,acc_x3=deriv(vel_x3)
+time3,acc_y3=deriv(vel_y3)
 
-accel1=np.gradient(velocity1,time)
 plt.figure(5)
-plt.plot(timeN,accel1)
-
-accelO=np.gradient(velocityO,frames)
-plt.plot(timeO,accelO)
+plt.plot(time1,acc_x1,time1,acc_y1,time2,acc_x2,time2,acc_y2,time3,acc_x3,time3,acc_y3)
