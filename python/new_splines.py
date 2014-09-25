@@ -1,6 +1,7 @@
 from extract_midpoint import data
 from derivative import deriv
 from perform_splines import perform_spline
+from frame_comparison import compare
 from trajectory_deviation import traj_dev
 from decimal import * #importing decimal fixed point arithmetic
 getcontext().prec=6 #specifying decimal places to 6
@@ -16,29 +17,24 @@ with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_01.csv') as 
     MPY1=[]
     MPZ1=[]
     data(f,MPX1,MPY1,MPZ1) #Obtains midpoint values for corresponding file
-    time1,x1,y1,xvalues1,yvalues1=perform_spline(MPX1,MPY1,MPZ1)
+    time1,x1,y1,xvalues1,yvalues1=perform_spline(MPX1,MPY1)
 
 with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_02.csv') as f:
     MPX2=[]
     MPY2=[]
     MPZ2=[]
     data(f,MPX2,MPY2,MPZ2) #Obtains midpoint values for corresponding file
-    time2,x2,y2,xvalues2,yvalues2=perform_spline(MPX2,MPY2,MPZ2)
+    time2,x2,y2,xvalues2,yvalues2=perform_spline(MPX2,MPY2)
 
 with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_03.csv') as f:
     MPX3=[]
     MPY3=[]
     MPZ3=[]
     data(f,MPX3,MPY3,MPZ3) #Obtains midpoint values for corresponding file
-    time3,x3,y3,xvalues3,yvalues3=perform_spline(MPX3,MPY3,MPZ3)
+    time3,x3,y3,xvalues3,yvalues3=perform_spline(MPX3,MPY3)
 
 
-if len(time1)<len(time2) and len(time1)<len(time3):
-    nf=len(time1)
-elif len(time2)<len(time1) and len(time2)<len(time1):
-    nf=len(time2)
-else:
-    nf=len(time3)
+nf=compare(time1,time2,time3)
 
 meanX=[]
 meanY=[]
@@ -116,8 +112,35 @@ vel1=resultant_profile(vel_x1,vel_y1)
 vel2=resultant_profile(vel_x2,vel_y2)
 vel3=resultant_profile(vel_x3,vel_y3)
 
+nf2=compare(time1,time2,time3)
+
 plt.figure(4)
-plt.plot(time1,vel1,time2,vel2,time3,vel3)
+
+v1=interpolate.UnivariateSpline(time1,vel1,s=0.000001)(time1)
+v2=interpolate.UnivariateSpline(time2,vel2,s=0.000001)(time2)
+v3=interpolate.UnivariateSpline(time3,vel3,s=0.000001)(time3)
+v1line=plt.plot(time1,vel1)
+v2line=plt.plot(time2,vel2)
+v3line=plt.plot(time3,vel3)
+v1values=v1line[0].get_ydata()
+v2values=v2line[0].get_ydata()
+v3values=v3line[0].get_ydata()
+
+meanVel=[]
+velocity1=[]
+velocity2=[]
+velocity3=[]
+sample2=[]
+
+for i in xrange(0,nf2):
+    sample2.append(Decimal(i)/nf2)
+    velocity1.append(v1values[sample[i]*len(v1)])
+    velocity2.append(v2values[sample[i]*len(v2)])
+    velocity3.append(v3values[sample[i]*len(v3)])
+    meanVel.append(Decimal((velocity1[i]+velocity2[i]+velocity3[i]))/3)
+
+plt.figure(5)
+plt.plot(sample,velocity1,sample,velocity2,sample,velocity3,sample,meanVel)
 
 time1,acc_x1=deriv(vel_x1)
 time1,acc_y1=deriv(vel_y1)
@@ -126,5 +149,9 @@ time2,acc_y2=deriv(vel_y2)
 time3,acc_x3=deriv(vel_x3)
 time3,acc_y3=deriv(vel_y3)
 
-plt.figure(5)
-plt.plot(time1,acc_x1,time1,acc_y1,time2,acc_x2,time2,acc_y2,time3,acc_x3,time3,acc_y3)
+acc1=resultant_profile(acc_x1,acc_y1)
+acc2=resultant_profile(acc_x2,acc_y2)
+acc3=resultant_profile(acc_x3,acc_y3)
+
+plt.figure(6)
+plt.plot(time1,acc1,time2,acc2,time3,acc3)
