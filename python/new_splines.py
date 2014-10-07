@@ -1,5 +1,5 @@
 from extract_midpoint import data
-from derivative import deriv
+from derivative import *
 from perform_splines import perform_spline
 from frame_comparison import compare
 from trajectory_deviation import traj_dev
@@ -62,7 +62,7 @@ fig1.suptitle('Midpoint Trajectories')
 plt.xlabel('Time')
 plt.ylabel('X/Y Axis')
 
-
+plt.close(1)
 fig2=plt.figure(2)
 mean_traject=plt.plot(meanX,meanY)
 traj1=plt.plot(MPX1,MPY1)
@@ -91,12 +91,12 @@ TD2=traj_dev(X_axis2,Y_axis2,meanX,meanY)
 TD3=traj_dev(X_axis3,Y_axis3,meanX,meanY)
 
 
-time1,vel_x1=deriv(x1)
-time1,vel_y1=deriv(y1)
-time2,vel_x2=deriv(x2)
-time2,vel_y2=deriv(y2)
-time3,vel_x3=deriv(x3)
-time3,vel_y3=deriv(y3)
+time1,vel_x1=deriv_vel(x1)
+time1,vel_y1=deriv_vel(y1)
+time2,vel_x2=deriv_vel(x2)
+time2,vel_y2=deriv_vel(y2)
+time3,vel_x3=deriv_vel(x3)
+time3,vel_y3=deriv_vel(y3)
 
 def resultant_profile(x,y):
     val=[]
@@ -116,12 +116,12 @@ nf2=compare(time1,time2,time3)
 
 plt.figure(4)
 
-v1=interpolate.UnivariateSpline(time1,vel1,s=0.000001)(time1)
-v2=interpolate.UnivariateSpline(time2,vel2,s=0.000001)(time2)
-v3=interpolate.UnivariateSpline(time3,vel3,s=0.000001)(time3)
-v1line=plt.plot(time1,vel1)
-v2line=plt.plot(time2,vel2)
-v3line=plt.plot(time3,vel3)
+v1=interpolate.UnivariateSpline(time1,vel1,s=0.1)(time1)
+v2=interpolate.UnivariateSpline(time2,vel2,s=0.1)(time2)
+v3=interpolate.UnivariateSpline(time3,vel3,s=0.1)(time3)
+v1line=plt.plot(time1,v1)
+v2line=plt.plot(time2,v2)
+v3line=plt.plot(time3,v3)
 v1values=v1line[0].get_ydata()
 v2values=v2line[0].get_ydata()
 v3values=v3line[0].get_ydata()
@@ -139,19 +139,70 @@ for i in xrange(0,nf2):
     velocity3.append(v3values[sample[i]*len(v3)])
     meanVel.append(Decimal((velocity1[i]+velocity2[i]+velocity3[i]))/3)
 
-plt.figure(5)
-plt.plot(sample,velocity1,sample,velocity2,sample,velocity3,sample,meanVel)
+plt.close(4)
+fig5=plt.figure(5)
+mean_Vtraj=plt.plot(sample2,meanVel)
+vtrace1=plt.plot(sample2,velocity1)
+vtrace2=plt.plot(sample2,velocity2)
+vtrace3=plt.plot(sample2,velocity3)
+plt.setp(vtrace1, linestyle='--')
+plt.setp(vtrace2, linestyle='--')
+plt.setp(vtrace3, linestyle='--')
+plt.xlabel('Normalised Time')
+plt.ylabel('Velocity (m/s)')
+fig5.suptitle('Mean Velocity Profile')
 
-time1,acc_x1=deriv(vel_x1)
-time1,acc_y1=deriv(vel_y1)
-time2,acc_x2=deriv(vel_x2)
-time2,acc_y2=deriv(vel_y2)
-time3,acc_x3=deriv(vel_x3)
-time3,acc_y3=deriv(vel_y3)
 
-acc1=resultant_profile(acc_x1,acc_y1)
-acc2=resultant_profile(acc_x2,acc_y2)
-acc3=resultant_profile(acc_x3,acc_y3)
+#time1,acc_x1=deriv(vel_x1)
+#time1,acc_y1=deriv(vel_y1)
+#time2,acc_x2=deriv(vel_x2)
+#time2,acc_y2=deriv(vel_y2)
+#time3,acc_x3=deriv(vel_x3)
+#time3,acc_y3=deriv(vel_y3)
 
+#acc1=resultant_profile(acc_x1,acc_y1)
+#acc2=resultant_profile(acc_x2,acc_y2)
+#acc3=resultant_profile(acc_x3,acc_y3)
+
+time1,acc1=deriv_accel(v1)
+time2,acc2=deriv_accel(v2)
+time3,acc3=deriv_accel(v3)
+
+nf3=compare(time1,time2,time3)
 plt.figure(6)
-plt.plot(time1,acc1,time2,acc2,time3,acc3)
+
+a1=interpolate.UnivariateSpline(time1,acc1,s=0.0000001)(time1)
+a2=interpolate.UnivariateSpline(time2,acc2,s=0.0000001)(time2)
+a3=interpolate.UnivariateSpline(time3,acc3,s=0.0000001)(time3)
+a1line=plt.plot(time1,a1)
+a2line=plt.plot(time2,a2)
+a3line=plt.plot(time3,a3)
+a1values=a1line[0].get_ydata()
+a2values=a2line[0].get_ydata()
+a3values=a3line[0].get_ydata()
+
+meanAcc=[]
+Acceleration1=[]
+Acceleration2=[]
+Acceleration3=[]
+sample3=[]
+
+for i in xrange(0,nf3):
+    sample3.append(Decimal(i)/nf3)
+    Acceleration1.append(a1values[sample[i]*len(a1)])
+    Acceleration2.append(a2values[sample[i]*len(a2)])
+    Acceleration3.append(a3values[sample[i]*len(a3)])
+    meanAcc.append(Decimal((Acceleration1[i]+Acceleration2[i]+Acceleration3[i]))/3)
+
+plt.close(6)
+fig7=plt.figure(7)
+mean_atraj=plt.plot(sample3,meanAcc)
+atrace1=plt.plot(sample3,Acceleration1)
+atrace2=plt.plot(sample3,Acceleration2)
+atrace3=plt.plot(sample3,Acceleration3)
+plt.setp(atrace1, linestyle='--')
+plt.setp(atrace2, linestyle='--')
+plt.setp(atrace3, linestyle='--')
+plt.xlabel('Normalised Time')
+plt.ylabel('Acceleration (m/s2)')
+fig7.suptitle('Mean Acceleration Profile')
