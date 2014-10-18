@@ -15,27 +15,53 @@ from read_filenames import get_filepaths
 import sys
 from mean_traj import mean_calc
 from variance_ellipse import variance_ellipse
+from scipy.signal import freqz
+from scipy.signal import butter, lfilter
+
+def butter_lowpass(lowcut, fs, order=2):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    b, a = butter(order, low)
+    return b, a
+
+def butter_lowpass_filter(data, lowcut, fs, order=2):
+    b, a = butter_lowpass(lowcut, fs, order=order)
+    y = lfilter(b, a, data)
+    return y
+
+fs=2500
+lowcut=6.25
+
+"""
+plt.figure(5)
+plt.clf()
+b,a=butter_lowpass(lowcut,fs,order=2)
+w,h=freqz(b,a,worN=500)
+plt.plot((fs*0.5/np.pi)*w,abs(h))
+"""
+
 
 plt.ion() #turns on interactive mode
 fig1=plt.figure(1)
 
 file_paths=[]
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P07"))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P07"))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P07"))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P04"))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P04"))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/P04"))
 use_files,nf,meanX,meanY,sample,Xax,Yax=[],[],[],[],[],[],[]
 MPX,MPY,MPZ,time,x,y,xvalues,yvalues=[],[],[],[],[],[],[],[]
+fX,fY=[],[]
 
 for i in xrange(0,len(file_paths)):
     use_files.append([])
     for j in xrange(0,len(file_paths[i])):
     	filename=file_paths[i][j]
     	if i==0:
-		target='C2N_S_vert_BF_'
+		target='C2N_S_vert_VF_'
 	elif i==1:
-		target='C4E_L_bleu_BF_'
+		target='C4E_L_bleu_VF_'
 	else:
-		target='C4W_R_rouge_BF_'
+		target='C4W_R_rouge_VF_'
 
     	if target in filename:
        		use_files[i].append(filename)
@@ -52,6 +78,8 @@ for i in xrange(0,len(file_paths)):
     yvalues.append([])
     Xax.append([])
     Yax.append([])
+    fX.append([])
+    fY.append([])
 
     for j in xrange(0,len(use_files[i])):
         with open(use_files[i][j]) as f:
@@ -59,7 +87,14 @@ for i in xrange(0,len(file_paths)):
 	    MPX[i].append(a)
 	    MPY[i].append(b)
 	    MPZ[i].append(c)
-	    d,e,f,g,h=perform_spline(MPX[i][j],MPY[i][j])
+            noiseX=[]
+            noiseY=[]
+            for l in xrange(0,len(MPX[i][j])):
+                noiseX.append(float(MPX[i][j][l]))
+                noiseY.append(float(MPY[i][j][l]))
+            fX[i].append(butter_lowpass_filter(noiseX,lowcut,fs,order=2))
+            fY[i].append(butter_lowpass_filter(noiseY,lowcut,fs,order=2))
+	    d,e,f,g,h=perform_spline(fX[i][j],fY[i][j])
 	    time[i].append(d)
 	    x[i].append(e)
 	    y[i].append(f)
@@ -103,7 +138,7 @@ plt.ylim(0, 5)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
-fig3.suptitle('P07 Trajectories')
+fig3.suptitle('P04 Trajectories - Visual Forward')
 
 variability=[]
 
@@ -111,18 +146,40 @@ for i in xrange(0,len(file_paths)):
     a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i)
     variability.append(a)
         
-plt.plot(meanX[0],meanY[0],meanX[1],meanY[1],meanX[2],meanY[2])
-traj1=plt.plot(MPX[0][0],MPY[0][0],MPX[0][1],MPY[0][1],MPX[0][2],MPY[0][2])
-traj2=plt.plot(MPX[1][0],MPY[1][0],MPX[1][1],MPY[1][1],MPX[1][2],MPY[1][2])
-traj3=plt.plot(MPX[2][0],MPY[2][0],MPX[2][1],MPY[2][1],MPX[2][2],MPY[2][2])
+plt.plot(meanX[0],meanY[0],label='C2N_S_vert_VF')
+plt.plot(meanX[1],meanY[1],label='C4E_L_bleu_VF')
+plt.plot(meanX[2],meanY[2],label='C4W_R_rouge_VF')
+traj1=plt.plot(fX[0][0],fY[0][0],fX[0][1],fY[0][1],fX[0][2],fY[0][2])
+traj2=plt.plot(fX[1][0],fY[1][0],fX[1][1],fY[1][1],fX[1][2],fY[1][2])
+traj3=plt.plot(fX[2][0],fY[2][0],fX[2][1],fY[2][1],fX[2][2],fY[2][2])
 plt.setp(traj1,linestyle='--')
 plt.setp(traj2,linestyle='--')
 plt.setp(traj3,linestyle='--')
+params = {'legend.fontsize': 8,
+          'legend.linewidth': 2}
+plt.rcParams.update(params)
+plt.legend(loc='upper right')
 
 fig4=plt.figure(4)
-plt.plot(sample[0],variability[0],sample[1],variability[1],sample[2],variability[2])
+plt.plot(sample[0],variability[0],label='C2N_S_vert_VF')
+plt.plot(sample[1],variability[1],label='C4E_L_bleu_VF')
+plt.plot(sample[2],variability[2],label='C4W_R_rouge_VF')
 plt.xlim(0, 1)
 plt.ylim(0, 1.9)
 plt.xlabel('Time')
 plt.ylabel('Variability')
-fig4.suptitle('P07 Variance Profile')
+fig4.suptitle('P04 Variance Profile - Visual Forward')
+params = {'legend.fontsize': 8,
+          'legend.linewidth': 2}
+plt.rcParams.update(params)
+plt.legend(loc='upper left')
+
+#_____________________________________________________#
+"""
+for i in xrange(0,len(MPX[2][1])):
+    x.append(float(MPX[2][1][i]))
+    y.append(float(MPY[2][1][i]))
+
+newx=butter_lowpass_filter(x,lowcut,fs,order=2)
+newy=butter_lowpass_filter(y,lowcut,fs,order=2)
+"""
