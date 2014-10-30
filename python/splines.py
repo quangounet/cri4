@@ -19,9 +19,11 @@ def perform_spline(MPX,MPY,MPZ):
     xx,yx=splinesToPlot(xsplines,xn,res)
     xy,yy=splinesToPlot(ysplines,yn,res)
     xline=plt.plot(xx,yx)
-    yline=plt.plot(xy,yy)
+    #yline=plt.plot(xy,yy)
+    plt.plot(t,MPX)
+    #plt.plot(t,MPY)
     xvalues=xline[0].get_ydata()
-    yvalues=yline[0].get_ydata()
+    #yvalues=yline[0].get_ydata()
 
     return xx,yx,xy,yy,xvalues,yvalues
 
@@ -35,7 +37,7 @@ with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_01.csv') as 
     MPZ=[]
     data(f,MPX,MPY,MPZ) #Obtains midpoint values for corresponding file
     X1x,Y1x,X1y,Y1y,xvalues1,yvalues1=perform_spline(MPX,MPY,MPZ)
-
+"""
 with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_02.csv') as f:
     MPX2=[]
     MPY2=[]
@@ -126,3 +128,19 @@ TD1=traj_dev(X_axis1,Y_axis1,meanX,meanY)
 TD2=traj_dev(X_axis2,Y_axis2,meanX,meanY)
 TD3=traj_dev(X_axis3,Y_axis3,meanX,meanY)
 print(TD1,TD2,TD3)
+
+timeN=range(0,len(X_axis1))
+timeN=np.array(timeN, dtype=np.float32).transpose()
+X_axis1=np.array(X_axis1, dtype=np.float32).transpose()
+time=np.gradient(timeN)[0]
+plt.figure(4)
+
+plt.plot(timeN, np.gradient(X_axis1,time))
+
+timeO=range(0,len(MPX))
+timeO=np.array(timeO,dtype=np.float32).transpose()
+MPX=np.array(MPX,dtype=np.float32).transpose()
+frames=np.gradient(timeO)[0]
+plt.figure(5)
+plt.plot(timeO, np.gradient(MPX,frames))
+"""

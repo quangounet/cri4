@@ -1,0 +1,83 @@
+from extract_midpoint import data
+from derivative import *
+from perform_splines import perform_spline
+from frame_comparison import compare
+from trajectory_deviation import traj_dev
+from decimal import * #importing decimal fixed point arithmetic
+getcontext().prec=6 #specifying decimal places to 6
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy import *
+from scipy import interpolate
+from matplotlib.patches import Ellipse
+from pylab import *
+from read_filenames import get_filepaths
+import sys
+from mean_traj import mean_calc
+
+plt.ion() #turns on interactive mode
+fig1=plt.figure(1)
+
+file_paths=[]
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/C01"))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/C02"))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/C03"))
+use_files,nf,meanX,meanY=[],[],[],[]
+MPX,MPY,MPZ,time,x,y,xvalues,yvalues=[],[],[],[],[],[],[],[]
+
+for i in xrange(0,len(file_paths)):
+    use_files.append([])
+    for j in xrange(0,len(file_paths[i])):
+    	filename=file_paths[i][j]
+    	if i==0:
+		target='C1N_S_vert_BF_'
+	elif i==1:
+		target='C4E_L_bleu_BF_'
+	else:
+		target='C4W_R_rouge_BF_'
+
+    	if target in filename:
+       		use_files[i].append(filename)
+    if len(use_files[i])!=3:
+	sys.exit("Error: not enough datasets")
+
+    MPX.append([])
+    MPY.append([])
+    MPZ.append([])
+    time.append([])
+    x.append([])
+    y.append([])
+    xvalues.append([])
+    yvalues.append([])
+
+    for j in xrange(0,len(use_files[i])):
+        with open(use_files[i][j]) as f:
+    	    a,b,c=data(f)
+	    MPX[i].append(a)
+	    MPY[i].append(b)
+	    MPZ[i].append(c)
+	    d,e,f,g,h=perform_spline(MPX[i][j],MPY[i][j])
+	    time[i].append(d)
+	    x[i].append(e)
+	    y[i].append(f)
+	    xvalues[i].append(g)
+	    yvalues[i].append(h)
+
+    nf.append(compare(time[i][0],time[i][1],time[i][2]))
+
+    a,b=mean_calc(nf[i],x[i][0],x[i][1],x[i][2],y[i][0],y[i][1],y[i][2],xvalues[i][0],xvalues[i][1],xvalues[i][2],yvalues[i][0],yvalues[i][1],yvalues[i][2])
+    meanX.append(a)
+    meanY.append(b)
+
+fig2=plt.figure(2)
+plt.plot(meanX[0],meanY[0],meanX[1],meanY[1])
+traj1=plt.plot(MPX[0][0],MPY[0][0],MPX[0][1],MPY[0][1],MPX[0][2],MPY[0][2])
+traj2=plt.plot(MPX[1][0],MPY[1][0],MPX[1][1],MPY[1][1],MPX[1][2],MPY[1][2])
+traj3=plt.plot(MPX[2][0],MPY[2][0],MPX[2][1],MPY[2][1],MPX[2][2],MPY[2][2])
+plt.setp(traj1,linestyle='--')
+plt.setp(traj2,linestyle='--')
+plt.setp(traj3,linestyle='--')
+plt.axis('equal')
+plt.xlabel=('X-axis')
+plt.ylabel=('Y-axis')
+fig2.suptitle('Mean Trajectory')

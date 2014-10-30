@@ -16,24 +16,15 @@ plt.ion() #turns on interactive mode
 fig1=plt.figure(1)
 #________________P01___________________#
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C1N_S_vert_VF_01.csv') as f:
-    MPX11=[]
-    MPY11=[]
-    MPZ11=[]
-    data(f,MPX11,MPY11,MPZ11) #Obtains midpoint values for corresponding file
+    MPX11,MPY11,MPZ11=data(f) #Obtains midpoint values for corresponding file
     time11,x11,y11,xvalues11,yvalues11=perform_spline(MPX11,MPY11)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C1N_S_vert_VF_02.csv') as f:
-    MPX12=[]
-    MPY12=[]
-    MPZ12=[]
-    data(f,MPX12,MPY12,MPZ12) #Obtains midpoint values for corresponding file
+    MPX12,MPY12,MPZ12=data(f) #Obtains midpoint values for corresponding file
     time12,x12,y12,xvalues12,yvalues12=perform_spline(MPX12,MPY12)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C1N_S_vert_VF_03.csv') as f:
-    MPX13=[]
-    MPY13=[]
-    MPZ13=[]
-    data(f,MPX13,MPY13,MPZ13) #Obtains midpoint values for corresponding file
+    MPX13,MPY13,MPZ13=data(f) #Obtains midpoint values for corresponding file
     time13,x13,y13,xvalues13,yvalues13=perform_spline(MPX13,MPY13)
 
 nf11=compare(time11,time12,time13)
@@ -61,24 +52,15 @@ for i in xrange(0,nf11):
 
 #________________P02_____________________#
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4E_R_rouge_VF_01.csv') as f:
-    MPX21=[]
-    MPY21=[]
-    MPZ21=[]
-    data(f,MPX21,MPY21,MPZ21) #Obtains midpoint values for corresponding file
+    MPX21,MPY21,MPZ21=data(f) #Obtains midpoint values for corresponding file
     time21,x21,y21,xvalues21,yvalues21=perform_spline(MPX21,MPY21)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4E_R_rouge_VF_02.csv') as f:
-    MPX22=[]
-    MPY22=[]
-    MPZ22=[]
-    data(f,MPX22,MPY22,MPZ22) #Obtains midpoint values for corresponding file
+    MPX22,MPY22,MPZ22=data(f) #Obtains midpoint values for corresponding file
     time22,x22,y22,xvalues22,yvalues22=perform_spline(MPX22,MPY22)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4E_R_rouge_VF_03.csv') as f:
-    MPX23=[]
-    MPY23=[]
-    MPZ23=[]
-    data(f,MPX23,MPY23,MPZ23) #Obtains midpoint values for corresponding file
+    MPX23,MPY23,MPZ23=data(f) #Obtains midpoint values for corresponding file
     time23,x23,y23,xvalues23,yvalues23=perform_spline(MPX23,MPY23)
 
 nf21=compare(time21,time22,time23)
@@ -107,24 +89,15 @@ for i in xrange(0,nf21):
 
 #______________________P03__________________#
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4W_L_bleu_VF_01.csv') as f:
-    MPX31=[]
-    MPY31=[]
-    MPZ31=[]
-    data(f,MPX31,MPY31,MPZ31) #Obtains midpoint values for corresponding file
+    MPX31,MPY31,MPZ31=data(f) #Obtains midpoint values for corresponding file
     time31,x31,y31,xvalues31,yvalues31=perform_spline(MPX31,MPY31)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4W_L_bleu_VF_02.csv') as f:
-    MPX32=[]
-    MPY32=[]
-    MPZ32=[]
-    data(f,MPX32,MPY32,MPZ32) #Obtains midpoint values for corresponding file
+    MPX32,MPY32,MPZ32=data(f) #Obtains midpoint values for corresponding file
     time32,x32,y32,xvalues32,yvalues32=perform_spline(MPX32,MPY32)
 
 with open('/home/cuebong/git/cri4/data_8_10_14/C07/C07_C4W_L_bleu_VF_03.csv') as f:
-    MPX33=[]
-    MPY33=[]
-    MPZ33=[]
-    data(f,MPX33,MPY33,MPZ33) #Obtains midpoint values for corresponding file
+    MPX33,MPY33,MPZ33=data(f) #Obtains midpoint values for corresponding file
     time33,x33,y33,xvalues33,yvalues33=perform_spline(MPX33,MPY33)
 
 nf31=compare(time31,time32,time33)

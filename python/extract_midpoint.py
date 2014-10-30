@@ -3,7 +3,7 @@ from collections import defaultdict
 from decimal import * #importing decimal fixed point arithmetic
 getcontext().prec=6 #specifying decimal places to 6
 
-def data(m,g,h,j):
+def data(m):
     """
     This function accesses the specified csv file and reads
     each row in every filled column, appending the values
@@ -24,7 +24,12 @@ def data(m,g,h,j):
     LShouX=n[18]
     LShouY=n[19]
     LShouZ=n[20]
+    g=[]
+    h=[]
+    j=[]
     for i in xrange(1,len(RShouX)): #Calculating midpoint values for each row
         g.append((RShouX[i]+LShouX[i])/2)
         h.append((RShouY[i]+LShouY[i])/2)
         j.append((RShouZ[i]+LShouZ[i])/2)
+
+    return g,h,j

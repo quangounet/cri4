@@ -7,26 +7,29 @@ from decimal import * #importing decimal fixed point arithmetic
 getcontext().prec=6 #specifying decimal places to 6
 import matplotlib.pyplot as plt
 import numpy as np
+from numpy import *
 from scipy import interpolate
+from matplotlib.patches import Ellipse
+from pylab import *
 
 plt.ion() #turns on interactive mode
 fig1=plt.figure(1)
 
-with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_01.csv') as f:
+with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C2N_S_vert_VF_01.csv') as f:
     MPX1=[]
     MPY1=[]
     MPZ1=[]
     data(f,MPX1,MPY1,MPZ1) #Obtains midpoint values for corresponding file
     time1,x1,y1,xvalues1,yvalues1=perform_spline(MPX1,MPY1)
 
-with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_02.csv') as f:
+with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C2N_S_vert_VF_02.csv') as f:
     MPX2=[]
     MPY2=[]
     MPZ2=[]
     data(f,MPX2,MPY2,MPZ2) #Obtains midpoint values for corresponding file
     time2,x2,y2,xvalues2,yvalues2=perform_spline(MPX2,MPY2)
 
-with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C1N_S_vert_BF_03.csv') as f:
+with open('/home/cuebong/git/cri4/data_5_9_14/C02/C02_C2N_S_vert_VF_03.csv') as f:
     MPX3=[]
     MPY3=[]
     MPZ3=[]
@@ -153,56 +156,42 @@ plt.ylabel('Velocity (m/s)')
 fig5.suptitle('Mean Velocity Profile')
 
 
-#time1,acc_x1=deriv(vel_x1)
-#time1,acc_y1=deriv(vel_y1)
-#time2,acc_x2=deriv(vel_x2)
-#time2,acc_y2=deriv(vel_y2)
-#time3,acc_x3=deriv(vel_x3)
-#time3,acc_y3=deriv(vel_y3)
+fig10=plt.figure(10)
+variability=[]
 
-#acc1=resultant_profile(acc_x1,acc_y1)
-#acc2=resultant_profile(acc_x2,acc_y2)
-#acc3=resultant_profile(acc_x3,acc_y3)
+for i in xrange(0,len(sample)):
+    data=array([[X_axis1[i],Y_axis1[i]],[X_axis2[i],Y_axis2[i]],[X_axis3[i],Y_axis3[i]]])
+    data2=array(data)
+    
+    meanxval=mean(data[:,0])
+    meanyval=mean(data[:,1])
+    
+    for i in range(data.shape[0]):
+        data2[i,0] = data[i,0] - meanxval
+        data2[i,1] = data[i,1] - meanyval
 
-time1,acc1=deriv_accel(v1)
-time2,acc2=deriv_accel(v2)
-time3,acc3=deriv_accel(v3)
+    ax = gca()
 
-nf3=compare(time1,time2,time3)
-plt.figure(6)
+    xy = (meanxval,meanyval)
+    u,d,v = linalg.svd(data2)
+    width = d[0]
+    height = d[1]
+    print(width,height)
+    angle = arctan2(v[0,1],v[0,0])*180/pi
+    variability.append(sqrt(width*width+height*height))
+    ellipse = Ellipse(xy, 2*width, 2*height, angle, edgecolor='r', fc='None', lw=2)
+    ax.add_patch(ellipse)
 
-a1=interpolate.UnivariateSpline(time1,acc1,s=0.0000001)(time1)
-a2=interpolate.UnivariateSpline(time2,acc2,s=0.0000001)(time2)
-a3=interpolate.UnivariateSpline(time3,acc3,s=0.0000001)(time3)
-a1line=plt.plot(time1,a1)
-a2line=plt.plot(time2,a2)
-a3line=plt.plot(time3,a3)
-a1values=a1line[0].get_ydata()
-a2values=a2line[0].get_ydata()
-a3values=a3line[0].get_ydata()
+plt.plot(meanX,meanY)
+plt.axis('equal')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+fig10.suptitle('Variance Ellipses Across Trajectory')
 
-meanAcc=[]
-Acceleration1=[]
-Acceleration2=[]
-Acceleration3=[]
-sample3=[]
+fig11=plt.figure(11)
+plt.plot(sample,variability)
+plt.xlabel('Time')
+plt.ylabel('Variability')
+fig11.suptitle('Variance Profile')
 
-for i in xrange(0,nf3):
-    sample3.append(Decimal(i)/nf3)
-    Acceleration1.append(a1values[sample[i]*len(a1)])
-    Acceleration2.append(a2values[sample[i]*len(a2)])
-    Acceleration3.append(a3values[sample[i]*len(a3)])
-    meanAcc.append(Decimal((Acceleration1[i]+Acceleration2[i]+Acceleration3[i]))/3)
 
-plt.close(6)
-fig7=plt.figure(7)
-mean_atraj=plt.plot(sample3,meanAcc)
-atrace1=plt.plot(sample3,Acceleration1)
-atrace2=plt.plot(sample3,Acceleration2)
-atrace3=plt.plot(sample3,Acceleration3)
-plt.setp(atrace1, linestyle='--')
-plt.setp(atrace2, linestyle='--')
-plt.setp(atrace3, linestyle='--')
-plt.xlabel('Normalised Time')
-plt.ylabel('Acceleration (m/s2)')
-fig7.suptitle('Mean Acceleration Profile')

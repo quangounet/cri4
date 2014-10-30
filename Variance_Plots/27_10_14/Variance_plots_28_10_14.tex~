@@ -1,0 +1,192 @@
+\documentclass[a4page,landscape,twocolumn,10pt]{article}
+\usepackage{graphicx}
+\oddsidemargin=0pt
+\topmargin=-0.5in
+\begin{document}
+
+\section{P01 - C01 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P01_trajectory_VF.eps}
+  \\* 
+  \includegraphics[width=0.4\linewidth]{P01_trajectory_BF.eps}
+  \includegraphics[width=0.4\linewidth]{C01_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+\textbf{*Note: Insufficient C01 data to generate comparable VF plot*}
+\\*
+\\*
+\\*
+\\*
+\\*
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{P01_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.45\linewidth]{P01_Variability_profile_BF.eps}
+  \includegraphics[width=0.45\linewidth]{C01_Variability_profile_BF.eps}
+\end{figure}
+
+\clearpage
+
+\section{P02 - C03 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P02_trajectory_VF.eps}
+  \includegraphics[width=0.4\linewidth]{C03_trajectory_VF.eps}
+  \\* 
+  \includegraphics[width=0.4\linewidth]{P02_trajectory_BF.eps}
+  \includegraphics[width=0.4\linewidth]{C03_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+ 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.45\linewidth]{P02_Variability_profile_VF.eps}
+  \includegraphics[width=0.45\linewidth]{C03_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.45\linewidth]{P02_Variability_profile_BF.eps}
+  \includegraphics[width=0.45\linewidth]{C03_Variability_profile_BF.eps}
+\end{figure}
+
+\clearpage
+
+\section{P03 - C04 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P03_trajectory_VF.eps}
+  \includegraphics[width=0.4\linewidth]{C04_trajectory_VF.eps}
+  \\* 
+  \includegraphics[width=0.4\linewidth]{P03_trajectory_BF.eps}
+  \includegraphics[width=0.4\linewidth]{C04_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.45\linewidth]{P03_Variability_profile_VF.eps}
+  \includegraphics[width=0.45\linewidth]{C04_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.45\linewidth]{P03_Variability_profile_BF.eps}
+  \includegraphics[width=0.45\linewidth]{C04_Variability_profile_BF.eps}
+\end{figure}
+
+\clearpage
+
+\section{P04 - C05 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P04_trajectory_VF.eps}
+  \\*
+  \includegraphics[width=0.4\linewidth]{P04_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+\textbf{*Note: Insufficient C05 data to generate comparable VF and BF plots*}
+\\*
+\\*
+\\*
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.5\linewidth]{P04_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.5\linewidth]{P04_Variability_profile_BF.eps}
+
+\end{figure}
+
+\clearpage
+
+\section{P05 - C07 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P05_trajectory_VF.eps}
+  \includegraphics[width=0.4\linewidth]{C07_trajectory_VF.eps}
+  \\* 
+  \includegraphics[width=0.4\linewidth]{C07_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+\textbf{*Note: Insufficient P05 data to generate comparable BF plot*}
+\\*
+\\*
+\\*
+\\*
+\\*
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{P05_Variability_profile_VF.eps}
+  \includegraphics[width=0.45\linewidth]{C07_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.45\linewidth]{C07_Variability_profile_BF.eps}
+\end{figure}
+
+\clearpage
+
+\section{P06 - C06 Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P06_trajectory_VF.eps}
+  \includegraphics[width=0.4\linewidth]{C06_trajectory_VF.eps}
+  \\* 
+  \includegraphics[width=0.4\linewidth]{P06_trajectory_BF.eps}
+  \includegraphics[width=0.4\linewidth]{C06_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.45\linewidth]{P06_Variability_profile_VF.eps}
+  \includegraphics[width=0.45\linewidth]{C06_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.45\linewidth]{P06_Variability_profile_BF.eps}
+  \includegraphics[width=0.45\linewidth]{C06_Variability_profile_BF.eps}
+\end{figure}
+
+\clearpage
+
+\section{P07 - C08 Pairing}
+P07 Visual Forward plot discarded due to erroneous trajectories
+\\*
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{P07_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+\textbf{*Note: Awaiting C08 data*}
+\\*
+\\*
+\\*
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{P07_Variability_profile_BF.eps}
+
+\end{figure}
+
+\clearpage
+
+\section{C02 - No Pairing}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{C02_trajectory_VF.eps}
+  \\*
+  \includegraphics[width=0.4\linewidth]{C02_trajectory_BF.eps}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\linewidth]{C02_Variability_profile_VF.eps}
+  \\*
+  \includegraphics[width=0.5\linewidth]{C02_Variability_profile_BF.eps}
+
+\end{figure}
+
+\clearpage
+
+\end{document}

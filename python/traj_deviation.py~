@@ -1,0 +1,7 @@
+def traj_dev(Xtraj,Ytraj,Xmean,Ymean):
+    sum=0
+    for i in xrange(0 to len(Xmean)):
+        sum=sum+(Xtraj[i]-Xmean[i])^2+(Ytraj[i]-Ymean[i])^2
+    TD=(sum/len(Xmean))^0.5
+
+    return TD

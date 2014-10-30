@@ -3,8 +3,8 @@ from decimal import *
 getcontext().prec=6
 
 def deriv_vel(val):
-    limit=(Decimal(len(val))/125)
-    step=Decimal(1)/125
+    limit=(Decimal(len(val))/120)
+    step=Decimal(1)/120
     time=np.arange(0,limit,step)
     time=np.array(time,dtype=np.float32).transpose()
     val=np.array(val,dtype=np.float32).transpose()

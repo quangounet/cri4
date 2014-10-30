@@ -1,0 +1,208 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2014.10.27)  29 OCT 2014 16:46
+entering extended mode
+ %&-line parsing enabled.
+**Variance_plots_28_10_14.tex
+(./Variance_plots_28_10_14.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+
+LaTeX Warning: Unused global option(s):
+    [a4page].
+
+(./Variance_plots_28_10_14.aux)
+\openout1 = `Variance_plots_28_10_14.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+File: P01_trajectory_VF.eps Graphic file (type eps)
+ <P01_trajectory_VF.eps>
+File: P01_trajectory_BF.eps Graphic file (type eps)
+
+<P01_trajectory_BF.eps>
+File: C01_trajectory_BF.eps Graphic file (type eps)
+ <C01_trajectory_BF.eps>
+File: P01_Variability_profile_VF.eps Graphic file (type eps)
+
+<P01_Variability_profile_VF.eps>
+File: P01_Variability_profile_BF.eps Graphic file (type eps)
+ <P01_Variability_profile_BF.eps>
+File: C01_Variability_profile_BF.eps Graphic file (type eps)
+
+<C01_Variability_profile_BF.eps> [1
+
+]
+File: P02_trajectory_VF.eps Graphic file (type eps)
+ <P02_trajectory_VF.eps>
+File: C03_trajectory_VF.eps Graphic file (type eps)
+
+<C03_trajectory_VF.eps>
+File: P02_trajectory_BF.eps Graphic file (type eps)
+ <P02_trajectory_BF.eps>
+File: C03_trajectory_BF.eps Graphic file (type eps)
+ <C03_trajectory_BF.eps>
+File: P02_Variability_profile_VF.eps Graphic file (type eps)
+
+<P02_Variability_profile_VF.eps>
+File: C03_Variability_profile_VF.eps Graphic file (type eps)
+ <C03_Variability_profile_VF.eps>
+File: P02_Variability_profile_BF.eps Graphic file (type eps)
+
+<P02_Variability_profile_BF.eps>
+File: C03_Variability_profile_BF.eps Graphic file (type eps)
+ <C03_Variability_profile_BF.eps> [2
+
+]
+File: P03_trajectory_VF.eps Graphic file (type eps)
+
+<P03_trajectory_VF.eps>
+File: C04_trajectory_VF.eps Graphic file (type eps)
+ <C04_trajectory_VF.eps>
+File: P03_trajectory_BF.eps Graphic file (type eps)
+ <P03_trajectory_BF.eps>
+File: C04_trajectory_BF.eps Graphic file (type eps)
+
+<C04_trajectory_BF.eps>
+File: P03_Variability_profile_VF.eps Graphic file (type eps)
+ <P03_Variability_profile_VF.eps>
+File: C04_Variability_profile_VF.eps Graphic file (type eps)
+
+<C04_Variability_profile_VF.eps>
+File: P03_Variability_profile_BF.eps Graphic file (type eps)
+ <P03_Variability_profile_BF.eps>
+File: C04_Variability_profile_BF.eps Graphic file (type eps)
+
+<C04_Variability_profile_BF.eps> [3
+
+]
+File: P04_trajectory_VF.eps Graphic file (type eps)
+ <P04_trajectory_VF.eps>
+File: P04_trajectory_BF.eps Graphic file (type eps)
+
+<P04_trajectory_BF.eps>
+File: P04_Variability_profile_VF.eps Graphic file (type eps)
+ <P04_Variability_profile_VF.eps>
+File: P04_Variability_profile_BF.eps Graphic file (type eps)
+
+<P04_Variability_profile_BF.eps> [4
+
+]
+File: P05_trajectory_VF.eps Graphic file (type eps)
+ <P05_trajectory_VF.eps>
+File: C07_trajectory_VF.eps Graphic file (type eps)
+
+<C07_trajectory_VF.eps>
+File: C07_trajectory_BF.eps Graphic file (type eps)
+ <C07_trajectory_BF.eps>
+File: P05_Variability_profile_VF.eps Graphic file (type eps)
+
+<P05_Variability_profile_VF.eps>
+File: C07_Variability_profile_VF.eps Graphic file (type eps)
+ <C07_Variability_profile_VF.eps>
+File: C07_Variability_profile_BF.eps Graphic file (type eps)
+
+<C07_Variability_profile_BF.eps> [5
+
+]
+File: P06_trajectory_VF.eps Graphic file (type eps)
+ <P06_trajectory_VF.eps>
+File: C06_trajectory_VF.eps Graphic file (type eps)
+
+<C06_trajectory_VF.eps>
+File: P06_trajectory_BF.eps Graphic file (type eps)
+ <P06_trajectory_BF.eps>
+File: C06_trajectory_BF.eps Graphic file (type eps)
+ <C06_trajectory_BF.eps>
+File: P06_Variability_profile_VF.eps Graphic file (type eps)
+
+<P06_Variability_profile_VF.eps>
+File: C06_Variability_profile_VF.eps Graphic file (type eps)
+ <C06_Variability_profile_VF.eps>
+File: P06_Variability_profile_BF.eps Graphic file (type eps)
+
+<P06_Variability_profile_BF.eps>
+File: C06_Variability_profile_BF.eps Graphic file (type eps)
+ <C06_Variability_profile_BF.eps> [6
+
+]
+File: P07_trajectory_BF.eps Graphic file (type eps)
+
+<P07_trajectory_BF.eps>
+File: P07_Variability_profile_BF.eps Graphic file (type eps)
+ <P07_Variability_profile_BF.eps> [7
+
+]
+File: C02_trajectory_VF.eps Graphic file (type eps)
+
+<C02_trajectory_VF.eps>
+File: C02_trajectory_BF.eps Graphic file (type eps)
+ <C02_trajectory_BF.eps>
+File: C02_Variability_profile_VF.eps Graphic file (type eps)
+
+<C02_Variability_profile_VF.eps>
+File: C02_Variability_profile_BF.eps Graphic file (type eps)
+ <C02_Variability_profile_BF.eps> [8
+
+]
+(./Variance_plots_28_10_14.aux) ) 
+Here is how much of TeX's memory you used:
+ 614 strings out of 495062
+ 8613 string characters out of 1182643
+ 52593 words of memory out of 3000000
+ 3808 multiletter control sequences out of 15000+50000
+ 4553 words of font info for 17 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 25i,4n,19p,218b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on Variance_plots_28_10_14.dvi (8 pages, 5776 bytes).
