@@ -14,6 +14,7 @@ from pylab import *
 from read_filenames import get_filepaths
 import sys
 from mean_traj import mean_calc
+from ANOVA import ANOVA
 from variance_ellipse import variance_ellipse
 from butter_filter import butter_lowpass, butter_lowpass_filter
 
@@ -30,7 +31,8 @@ plt.plot((fs*0.5/np.pi)*w,abs(h))
 
 plt.ion() #turns on interactive mode
 fig1=plt.figure(1)
-pc='C05'
+pc='P03'
+pc1='C04'
 plt.xlabel('Sample Number')
 plt.ylabel('X/Y Axis')
 fig1.suptitle('X/Y Trajectories')
@@ -48,16 +50,28 @@ file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
 file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
 file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
 file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
-file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc))
+
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+#file_paths.append(get_filepaths("/home/cuebong/git/cri4/data_8_10_14/"+pc1))
+
 use_files,nf,meanX,meanY,sample,Xax,Yax=[],[],[],[],[],[],[]
 MPX,MPY,MPZ,time,x,y,xvalues,yvalues=[],[],[],[],[],[],[],[]
 fX,fY,time_vel,vel_x,vel_y,vel=[],[],[],[],[],[]
@@ -66,55 +80,43 @@ for i in xrange(0,len(file_paths)):
     use_files.append([])
     for j in xrange(0,len(file_paths[i])):
     	filename=file_paths[i][j]
-    	if i==0:
-            target='C4E_R_rouge_VF_'
-	elif i==1:
-            target='C4N_R_rouge_VF_'
-        elif i==2:
-            target='C4S_R_rouge_VF_'
-	elif i==3:
-            target='C4W_R_rouge_VF_'
-        elif i==4:
-            target='C4E_R_rouge_BF_'
-	elif i==5:
-            target='C4N_R_rouge_BF_'
-        elif i==6:
-            target='C4S_R_rouge_BF_'
-	elif i==7:
-            target='C4W_R_rouge_BF_'
-        elif i==8:
-            target='C5E_R_rouge_VF_'
-	elif i==9:
-            target='C5N_R_rouge_VF_'
-        elif i==10:
-            target='C5S_R_rouge_VF_'
-	elif i==11:
-            target='C5W_R_rouge_VF_'
-        elif i==12:
-            target='C5E_R_rouge_BF_'
-	elif i==13:
-            target='C5N_R_rouge_BF_'
-        elif i==14:
-            target='C5S_R_rouge_BF_'
-        elif i==15:
-            target='C5W_R_rouge_BF_'
-        elif i==16:
-            target='C1N_S_vert_VF_'
-	elif i==17:
-            target='C2N_S_vert_VF_'
-        elif i==18:
-            target='C3N_S_vert_VF_'
-	elif i==19:
-            target='C1N_S_vert_BF_'
-        elif i==20:
-            target='C2N_S_vert_BF_'
-        else:
-            target='C3N_S_vert_BF_'
+    	if i==0 or i==12:
+            target='C4E_L_bleu_VF_'
+	elif i==1 or i==13:
+            target='C4N_L_bleu_VF_'
+        elif i==2 or i==14:
+            target='C4W_L_bleu_VF_'
+	elif i==3 or i==15:
+            target='C4E_L_bleu_BF_'
+        elif i==4 or i==16:
+            target='C4N_L_bleu_BF_'
+	elif i==5 or i==17:
+            target='C4W_L_bleu_BF_'
+        elif i==6 or i==18:
+            target='C5E_L_bleu_VF_'
+	elif i==7 or i==19:
+            target='C5S_L_bleu_VF_'
+        elif i==8 or i==20:
+            target='C5W_L_bleu_VF_'
+	elif i==9 or i==21:
+            target='C5E_L_bleu_BF_'
+        elif i==10 or i==22:
+            target='C5S_L_bleu_BF_'
+	elif i==11 or i==23:
+            target='C5W_L_bleu_BF_'
+        #elif i==12 or i==26:
+            #target='C5E_L_bleu_BF_'
+	#elif i==13 or i==27:
+            #target='C5N_L_bleu_BF_'
+       # elif i==14 or i==30:
+     #       target='C5S_L_bleu_BF_'
+    #    else:
+     #       target='C5W_L_bleu_BF_'
 
     	if target in filename:
        		use_files[i].append(filename)
     if len(use_files[i])!=3:
-	sys.exit("Error: not enough datasets")
+	sys.exit("Error: not enough datasets",i)
 
     MPX.append([])
     MPY.append([])
@@ -228,7 +230,7 @@ for i in xrange(0,len(file_paths)):
     Yax[i].append(h)
     Yax[i].append(k)
 
-"""#Displaying original (unfiltered) trjectory paths
+#Displaying original (unfiltered) trjectory paths
 fig2=plt.figure(2)
 plt.plot(meanX[0],meanY[0],meanX[1],meanY[1],meanX[2],meanY[2])
 traj1=plt.plot(MPX[0][0],MPY[0][0],MPX[0][1],MPY[0][1],MPX[0][2],MPY[0][2])
@@ -241,8 +243,8 @@ plt.axis('equal')
 plt.xlabel=('X-axis')
 plt.ylabel=('Y-axis')
 fig2.suptitle('Mean Trajectory')
-"""
 
+"""
 #__________Variance_Ellipses______________________
 fig4=plt.figure(4)
 plt.xlim(0, 4.5)
@@ -254,44 +256,46 @@ plt.ylabel('Y-axis')
 
 variability=[]
 
-for i in xrange(0,4):
+for i in xrange(0,24):###################################################
     a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i)
     variability.append(a)
         
-plt.plot(meanX[0],meanY[0],label='C4E_R_rouge_VF',color='b')
-plt.plot(meanX[1],meanY[1],label='C4N_R_rouge_VF',color='g')
-plt.plot(meanX[2],meanY[2],label='C4S_R_rouge_VF',color='r')
-plt.plot(meanX[3],meanY[3],label='C4W_R_rouge_VF',color='k')
+plt.plot(meanX[0],meanY[0],label='C4E_L_bleu_VF',color='b')
+plt.plot(meanX[1],meanY[1],label='C4N_L_bleu_VF',color='g')
+plt.plot(meanX[2],meanY[2],label='C4S_L_bleu_VF',color='r')
+#plt.plot(meanX[3],meanY[3],label='C4W_L_bleu_VF',color='k')######################################
 traj1=plt.plot(fX[0][0],fY[0][0],fX[0][1],fY[0][1],fX[0][2],fY[0][2])
 traj2=plt.plot(fX[1][0],fY[1][0],fX[1][1],fY[1][1],fX[1][2],fY[1][2])
 traj3=plt.plot(fX[2][0],fY[2][0],fX[2][1],fY[2][1],fX[2][2],fY[2][2])
-traj4=plt.plot(fX[3][0],fY[3][0],fX[3][1],fY[3][1],fX[3][2],fY[3][2])
+#traj4=plt.plot(fX[3][0],fY[3][0],fX[3][1],fY[3][1],fX[3][2],fY[3][2])#######################################
 plt.setp(traj1,linestyle='--')
 plt.setp(traj2,linestyle='--')
 plt.setp(traj3,linestyle='--')
-plt.setp(traj4,linestyle='--')
+#plt.setp(traj4,linestyle='--')#############################################
 params = {'legend.fontsize': 8,
           'legend.linewidth': 2}
 plt.rcParams.update(params)
 plt.legend(loc='upper right')
-fig4.suptitle(pc+'-C4-R_rouge-Trajectories-Visual Forward')
-fig4.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C4_R_rouge_trajectories_VF.eps")
+fig4.suptitle(pc+'Trajectories-Visual Forward')
+#fig4.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_trajectories_BF.eps")
 
 fig5=plt.figure(5)
-plt.plot(sample[0],variability[0],label='C4E_R_rouge_VF',color='b')
-plt.plot(sample[1],variability[1],label='C4N_R_rouge_VF',color='g')
-plt.plot(sample[2],variability[2],label='C4S_R_rouge_VF',color='r')
-plt.plot(sample[3],variability[3],label='C4W_R_rouge_VF',color='k')
+plt.plot(sample[0],variability[0],label='C4E_L_bleu_VF',color='b')
+plt.plot(sample[1],variability[1],label='C4N_L_bleu_VF',color='g')
+plt.plot(sample[2],variability[2],label='C4S_L_bleu_VF',color='r')
+#plt.plot(sample[3],variability[3],label='C4W_L_bleu_VF',color='k')##################################
 plt.xlim(0, 1)
 plt.ylim(0, 2.5)
 plt.xlabel('Time')
 plt.ylabel('Variability')
-fig5.suptitle(pc+'-C4-R_rouge-Variance Profile-Visual Forward')
+fig5.suptitle(pc+'Variance Profile-Blindfolded')
 params = {'legend.fontsize': 8,
           'legend.linewidth': 2}
 plt.rcParams.update(params)
 plt.legend(loc='upper left')
-fig5.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C4_R_rouge_Variability_profile_VF.eps")
+#fig5.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_Variability_profile_BF.eps")
+
+
 
 fig6=plt.figure(6)
 plt.xlim(0, 4.5)
@@ -299,223 +303,43 @@ plt.ylim(0, 6)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
-
-for i in xrange(4,8):
-    a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i-4)
-    variability.append(a)
 	
-plt.plot(meanX[4],meanY[4],label='C4E_R_rouge_BF',color='b')
-plt.plot(meanX[5],meanY[5],label='C4N_R_rouge_BF',color='g')
-plt.plot(meanX[6],meanY[6],label='C4S_R_rouge_BF',color='r')
-plt.plot(meanX[7],meanY[7],label='C4W_R_rouge_BF',color='k')
-traj1=plt.plot(fX[4][0],fY[4][0],fX[4][1],fY[4][1],fX[4][2],fY[4][2])
-traj2=plt.plot(fX[5][0],fY[5][0],fX[5][1],fY[5][1],fX[5][2],fY[5][2])
-traj3=plt.plot(fX[6][0],fY[6][0],fX[6][1],fY[6][1],fX[6][2],fY[6][2])
-traj4=plt.plot(fX[7][0],fY[7][0],fX[7][1],fY[7][1],fX[7][2],fY[7][2])
+
+plt.plot(meanX[3],meanY[3],label='C4E_L_bleu_BF',color='b')
+plt.plot(meanX[4],meanY[4],label='C4N_L_bleu_BF',color='g')
+plt.plot(meanX[5],meanY[5],label='C4S_L_bleu_BF',color='r')
+#plt.plot(meanX[7],meanY[7],label='C4W_L_bleu_BF',color='k')############################
+traj1=plt.plot(fX[3][0],fY[3][0],fX[3][1],fY[3][1],fX[3][2],fY[3][2])
+traj2=plt.plot(fX[4][0],fY[4][0],fX[4][1],fY[4][1],fX[4][2],fY[4][2])
+traj3=plt.plot(fX[5][0],fY[5][0],fX[5][1],fY[5][1],fX[5][2],fY[5][2])
+#traj4=plt.plot(fX[7][0],fY[7][0],fX[7][1],fY[7][1],fX[7][2],fY[7][2])
 plt.setp(traj1,linestyle='--')
 plt.setp(traj2,linestyle='--')
 plt.setp(traj3,linestyle='--')
-plt.setp(traj4,linestyle='--')
+#plt.setp(traj4,linestyle='--')
 params = {'legend.fontsize': 8,
           'legend.linewidth': 2}
 plt.rcParams.update(params)
 plt.legend(loc='upper right')
-fig6.suptitle(pc+'-C4-R_rouge-Trajectories-Blindfolded')
-fig6.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C4_R_rouge_trajectories_BF.eps")
+fig6.suptitle(pc+'Trajectories-Blindfolded')
+#fig4.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_trajectories_BF.eps")
 
 fig7=plt.figure(7)
-plt.plot(sample[4],variability[4],label='C4E_R_rouge_BF',color='b')
-plt.plot(sample[5],variability[5],label='C4N_R_rouge_BF',color='g')
-plt.plot(sample[6],variability[6],label='C4S_R_rouge_BF',color='r')
-plt.plot(sample[7],variability[7],label='C4W_R_rouge_BF',color='k')
+plt.plot(sample[3],variability[3],label='C4E_L_bleu_BF',color='b')
+plt.plot(sample[4],variability[4],label='C4N_L_bleu_BF',color='g')
+plt.plot(sample[5],variability[5],label='C4S_L_bleu_BF',color='r')
+#plt.plot(sample[7],variability[7],label='C4W_L_bleu_BF',color='k')############################
 plt.xlim(0, 1)
 plt.ylim(0, 2.5)
 plt.xlabel('Time')
 plt.ylabel('Variability')
-fig7.suptitle(pc+'-C4_R_rouge-Variance Profile-Blindfolded')
+fig5.suptitle(pc+'Variance Profile-Blindfolded')
 params = {'legend.fontsize': 8,
           'legend.linewidth': 2}
 plt.rcParams.update(params)
 plt.legend(loc='upper left')
-fig7.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C4_R_rouge_Variability_profile_BF.eps")
+#fig5.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_Variability_profile_BF.eps")
 
-fig8=plt.figure(8)
-plt.xlim(0, 4.5)
-plt.ylim(0, 6)
-plt.gca().set_aspect('equal', adjustable='box')
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
-
-for i in xrange(8,12):
-    a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i-8)
-    variability.append(a)
-        
-plt.plot(meanX[8],meanY[8],label='C5E_R_rouge_VF',color='b')
-plt.plot(meanX[9],meanY[9],label='C5N_R_rouge_VF',color='g')
-plt.plot(meanX[10],meanY[10],label='C5S_R_rouge_VF',color='r')
-plt.plot(meanX[11],meanY[11],label='C5W_R_rouge_VF',color='k')
-traj1=plt.plot(fX[8][0],fY[8][0],fX[8][1],fY[8][1],fX[8][2],fY[8][2])
-traj2=plt.plot(fX[9][0],fY[9][0],fX[9][1],fY[9][1],fX[9][2],fY[9][2])
-traj3=plt.plot(fX[10][0],fY[10][0],fX[10][1],fY[10][1],fX[10][2],fY[10][2])
-traj4=plt.plot(fX[11][0],fY[11][0],fX[11][1],fY[11][1],fX[11][2],fY[11][2])
-plt.setp(traj1,linestyle='--')
-plt.setp(traj2,linestyle='--')
-plt.setp(traj3,linestyle='--')
-plt.setp(traj4,linestyle='--')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper right')
-fig8.suptitle(pc+'-C5-R_rouge-Trajectories-Visual Forward')
-fig8.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C5_R_rouge_trajectories_VF.eps")
-
-fig9=plt.figure(9)
-plt.plot(sample[8],variability[8],label='C5E_R_rouge_VF',color='b')
-plt.plot(sample[9],variability[9],label='C5N_R_rouge_VF',color='g')
-plt.plot(sample[10],variability[10],label='C5S_R_rouge_VF',color='r')
-plt.plot(sample[11],variability[11],label='C5W_R_rouge_VF',color='k')
-plt.xlim(0, 1)
-plt.ylim(0, 2.5)
-plt.xlabel('Time')
-plt.ylabel('Variability')
-fig9.suptitle(pc+'-C5-R_rouge-Variance Profile-Visual Forward')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper left')
-fig9.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C5_R_rouge_Variability_profile_VF.eps")
-
-fig10=plt.figure(10)
-plt.xlim(0, 4.5)
-plt.ylim(0, 6)
-plt.gca().set_aspect('equal', adjustable='box')
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
-
-for i in xrange(12,16):
-    a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i-12)
-    variability.append(a)
-	
-plt.plot(meanX[12],meanY[12],label='C5E_R_rouge_BF',color='b')
-plt.plot(meanX[13],meanY[13],label='C5N_R_rouge_BF',color='g')
-plt.plot(meanX[14],meanY[14],label='C5S_R_rouge_BF',color='r')
-plt.plot(meanX[15],meanY[15],label='C5W_R_rouge_BF',color='k')
-traj1=plt.plot(fX[12][0],fY[12][0],fX[12][1],fY[12][1],fX[12][2],fY[12][2])
-traj2=plt.plot(fX[13][0],fY[13][0],fX[13][1],fY[13][1],fX[13][2],fY[13][2])
-traj3=plt.plot(fX[14][0],fY[14][0],fX[14][1],fY[14][1],fX[14][2],fY[14][2])
-traj4=plt.plot(fX[15][0],fY[15][0],fX[15][1],fY[15][1],fX[15][2],fY[15][2])
-plt.setp(traj1,linestyle='--')
-plt.setp(traj2,linestyle='--')
-plt.setp(traj3,linestyle='--')
-plt.setp(traj4,linestyle='--')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper right')
-fig10.suptitle(pc+'-C5-R_rouge-Trajectories-Blindfolded')
-fig10.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C5_R_rouge_trajectories_BF.eps")
-
-fig11=plt.figure(11)
-plt.plot(sample[12],variability[12],label='C5E_R_rouge_BF',color='b')
-plt.plot(sample[13],variability[13],label='C5N_R_rouge_BF',color='g')
-plt.plot(sample[14],variability[14],label='C5S_R_rouge_BF',color='r')
-plt.plot(sample[15],variability[15],label='C5W_R_rouge_BF',color='k')
-plt.xlim(0, 1)
-plt.ylim(0, 2.5)
-plt.xlabel('Time')
-plt.ylabel('Variability')
-fig11.suptitle(pc+'-C5_R_rouge-Variance Profile-Blindfolded')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper left')
-fig11.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_C5_R_rouge_Variability_profile_BF.eps")
-
-fig12=plt.figure(12)
-plt.xlim(0, 4.5)
-plt.ylim(0, 6)
-plt.gca().set_aspect('equal', adjustable='box')
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
-
-for i in xrange(16,19):
-    a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i-16)
-    variability.append(a)
-	
-plt.plot(meanX[16],meanY[16],label='C1N_S_vert_VF',color='b')
-plt.plot(meanX[17],meanY[17],label='C2N_S_vert_VF',color='g')
-plt.plot(meanX[18],meanY[18],label='C3N_S_vert_VF',color='r')
-traj1=plt.plot(fX[16][0],fY[16][0],fX[16][1],fY[16][1],fX[16][2],fY[16][2])
-traj2=plt.plot(fX[17][0],fY[17][0],fX[17][1],fY[17][1],fX[17][2],fY[17][2])
-traj3=plt.plot(fX[18][0],fY[18][0],fX[18][1],fY[18][1],fX[18][2],fY[18][2])
-plt.setp(traj1,linestyle='--')
-plt.setp(traj2,linestyle='--')
-plt.setp(traj3,linestyle='--')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper right')
-fig12.suptitle(pc+'-S_vert-Trajectories-Visual Forward')
-fig12.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_trajectories_VF.eps")
-
-fig13=plt.figure(13)
-plt.plot(sample[16],variability[16],label='C1N_S_vert_VF',color='b')
-plt.plot(sample[17],variability[17],label='C2N_S_vert_VF',color='g')
-plt.plot(sample[18],variability[18],label='C3N_S_vert_VF',color='r')
-plt.xlim(0, 1)
-plt.ylim(0, 2.5)
-plt.xlabel('Time')
-plt.ylabel('Variability')
-fig13.suptitle(pc+'-S_vert-Variance Profile-Visual Forward')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper left')
-fig13.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_Variability_profile_VF.eps")
-
-fig14=plt.figure(14)
-plt.xlim(0, 4.5)
-plt.ylim(0, 6)
-plt.gca().set_aspect('equal', adjustable='box')
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
-
-for i in xrange(19,22):
-    a=variance_ellipse(sample[i],Xax[i][0],Xax[i][1],Xax[i][2],Yax[i][0],Yax[i][1],Yax[i][2],i-19)
-    variability.append(a)
-	
-plt.plot(meanX[19],meanY[19],label='C1N_S_vert_BF',color='b')
-plt.plot(meanX[20],meanY[20],label='C2N_S_vert_BF',color='g')
-plt.plot(meanX[21],meanY[21],label='C3N_S_vert_BF',color='r')
-traj1=plt.plot(fX[19][0],fY[19][0],fX[19][1],fY[19][1],fX[19][2],fY[19][2])
-traj2=plt.plot(fX[20][0],fY[20][0],fX[20][1],fY[20][1],fX[20][2],fY[20][2])
-traj3=plt.plot(fX[21][0],fY[21][0],fX[21][1],fY[21][1],fX[21][2],fY[21][2])
-plt.setp(traj1,linestyle='--')
-plt.setp(traj2,linestyle='--')
-plt.setp(traj3,linestyle='--')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper right')
-fig14.suptitle(pc+'-S_vert-Trajectories-Blindfolded')
-fig14.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_trajectories_BF.eps")
-
-fig15=plt.figure(15)
-plt.plot(sample[19],variability[19],label='C1N_S_vert_BF',color='b')
-plt.plot(sample[20],variability[20],label='C2N_S_vert_BF',color='g')
-plt.plot(sample[21],variability[21],label='C3N_S_vert_BF',color='r')
-plt.xlim(0, 1)
-plt.ylim(0, 2.5)
-plt.xlabel('Time')
-plt.ylabel('Variability')
-fig15.suptitle(pc+'-S_vert-Variance Profile-Blindfolded')
-params = {'legend.fontsize': 8,
-          'legend.linewidth': 2}
-plt.rcParams.update(params)
-plt.legend(loc='upper left')
-fig15.savefig("/home/cuebong/git/cri4/Variance_Plots/31_10_14/"+pc+"_S_vert_Variability_profile_BF.eps")
-
-"""
 fig12=plt.figure(12)
 
 meanVarxinterp,meanVaryinterp,meanVarX,meanVarY,mean_diff=[],[],[],[],[]
@@ -532,13 +356,13 @@ fig13=plt.figure(13)
 resampled_meanX1,resampled_meanX2,resampled_meanY1,resampled_meanY2=[],[],[],[]
 mean_diff=[]
 intersubject_time=[]
-for i in xrange(0,4):
+for i in xrange(0,3):##########
     resampled_meanX1.append([])
     resampled_meanX2.append([])
     resampled_meanY1.append([])
     resampled_meanY2.append([])
     mean_diff.append([])
-    j=i+4
+    j=i+3########################
     if len(sample[i])>len(sample[j]):
         intersubject_time.append(sample[j])
     else:
@@ -554,14 +378,14 @@ for i in xrange(0,4):
         diffY=resampled_meanY1[i][l]-resampled_meanY2[i][l]
         mean_diff[i].append(sqrt(diffX*diffX+diffY*diffY))
 
-for l in xrange(4,8):
+for l in xrange(3,6):##################
     resampled_meanX1.append([])
     resampled_meanX2.append([])
     resampled_meanY1.append([])
     resampled_meanY2.append([])
     mean_diff.append([])
-    i=l+4
-    j=i+4
+    i=l+3###############
+    j=i+3###############
     if len(sample[i])>len(sample[j]):
         intersubject_time.append(sample[j])
     else:
@@ -577,14 +401,15 @@ for l in xrange(4,8):
         diffY=resampled_meanY1[l][m]-resampled_meanY2[l][m]
         mean_diff[l].append(sqrt(diffX*diffX+diffY*diffY))
 
-for l in xrange(8,11):
+
+for l in xrange(6,9):##########
     resampled_meanX1.append([])
     resampled_meanX2.append([])
     resampled_meanY1.append([])
     resampled_meanY2.append([])
     mean_diff.append([])
-    i=l+8
-    j=i+3
+    i=l+6##################
+    j=i+3#################
     if len(sample[i])>len(sample[j]):
         intersubject_time.append(sample[j])
     else:
@@ -599,6 +424,30 @@ for l in xrange(8,11):
         diffX=resampled_meanX1[l][m]-resampled_meanX2[l][m]
         diffY=resampled_meanY1[l][m]-resampled_meanY2[l][m]
         mean_diff[l].append(sqrt(diffX*diffX+diffY*diffY))
+
+for l in xrange(9,12):#############
+    resampled_meanX1.append([])
+    resampled_meanX2.append([])
+    resampled_meanY1.append([])
+    resampled_meanY2.append([])
+    mean_diff.append([])
+    i=l+9############
+    j=i+3#################
+    if len(sample[i])>len(sample[j]):
+        intersubject_time.append(sample[j])
+    else:
+        intersubject_time.append(sample[i])
+    for k in xrange(0,len(intersubject_time[l])):
+        resampled_meanX1[l].append(meanVarX[i][intersubject_time[l][k]*len(meanVarxinterp[i])])
+        resampled_meanX2[l].append(meanVarX[j][intersubject_time[l][k]*len(meanVarxinterp[j])])
+        resampled_meanY1[l].append(meanVarX[i][intersubject_time[l][k]*len(meanVaryinterp[i])])
+        resampled_meanY2[l].append(meanVarX[j][intersubject_time[l][k]*len(meanVaryinterp[j])])
+    
+    for m in xrange(0,len(intersubject_time[l])):
+        diffX=resampled_meanX1[l][m]-resampled_meanX2[l][m]
+        diffY=resampled_meanY1[l][m]-resampled_meanY2[l][m]
+        mean_diff[l].append(sqrt(diffX*diffX+diffY*diffY))
+
 
 #plt.plot(intersubject_time[0],mean_diff[0],label='C4E_L_bleu', color='b')
 #plt.plot(intersubject_time[1],mean_diff[1],label='C4N_L_bleu', color='g')
@@ -618,25 +467,45 @@ for l in xrange(8,11):
 VF_Var=[]
 BF_Var=[]
 VFBF_Var=[]
+patientVF=[]
+controlVF=[]
+patientBF=[]
+controlBF=[]
+patientMTS=[]
+controlMTS=[]
 
-for i in xrange(0,4):
+for i in xrange(0,3):##############
     VF_Var.append(max(variability[i]))
-    BF_Var.append(max(variability[i+4]))
+    BF_Var.append(max(variability[i+3]))
     VFBF_Var.append(max(mean_diff[i]))
 
-for l in xrange(4,8):
-    i=l+4
-    VF_Var.append(max(variability[i]))
-    BF_Var.append(max(variability[i+4]))
-    VFBF_Var.append(max(mean_diff[l]))
-
-for l in xrange(8,11):
-    i=l+8
+for l in xrange(3,6):##############
+    i=l+3################
     VF_Var.append(max(variability[i]))
     BF_Var.append(max(variability[i+3]))
     VFBF_Var.append(max(mean_diff[l]))
 
-N=11
+for l in xrange(6,9):############
+    i=l+6#################
+    VF_Var.append(max(variability[i]))
+    BF_Var.append(max(variability[i+3]))
+    VFBF_Var.append(max(mean_diff[l]))
+
+for l in xrange(9,12):############
+    i=l+9##########
+    VF_Var.append(max(variability[i]))
+    BF_Var.append(max(variability[i+3]))
+    VFBF_Var.append(max(mean_diff[l]))
+
+for i in xrange(0,6):################
+    patientVF.append(VF_Var[i])
+    patientBF.append(BF_Var[i])
+    patientMTS.append(VFBF_Var[i])
+    controlVF.append(VF_Var[i+6])
+    controlBF.append(BF_Var[i+6])
+    controlMTS.append(VFBF_Var[i+6])##################
+
+N=12 
 ind=np.arange(N)+1
 width=0.3
 fig, ax=plt.subplots()
@@ -645,10 +514,71 @@ BF_bar=ax.bar(ind+width,BF_Var,width,color='g')
 VFBF_bar=ax.bar(ind+width+width,VFBF_Var,width,color='r')
 
 ax.set_ylabel('Max Variance')
-ax.set_title(pc+'Maximum Variance across Trajectories')
+ax.set_ylim(0,2.5)
+ax.set_title(pc+'/'+pc1+'-Maximum Variance across Trajectories-L_bleu')##########################
 ax.set_xlabel('Target')
 ax.set_xticks(ind+1.5*width)
-ax.set_xticklabels(('C4E','C4N','C4S','C4W','C5E','C5N','C5S','C5W','C1N','C2N','C3N'))
+ax.set_xticklabels(('PC4E','PC4N','PC4S','PC5E','PC5N','PC5S','CC4E','CC4N','CC4S','CC5E','CC5N','CC5S'))
+ax.legend((VF_bar[0],BF_bar[0],VFBF_bar[0]),('MTD-VF','MTD-BF','MTS'),loc='upper left')
 
-ax.legend((VF_bar[0],BF_bar[0],VFBF_bar[0]),('MTD-VF','MTD-BF','MTS'))
+N2=6
+ind2=np.arange(N2)+1
+width2=0.4
+fig,ax=plt.subplots()
+pVF=ax.bar(ind2,patientVF,width2,color='b')
+cVF=ax.bar(ind2+width2,controlVF,width2,color='g')
+ax.set_ylabel('Max Variance')
+ax.set_ylim(0,2.5)
+ax.set_title(pc+'/'+pc1+'-Maximum Variance-L_bleu-VF')#########################
+ax.set_xlabel('Target')
+ax.set_xticks(ind2+width2)
+ax.set_xticklabels(('C4E','C4N','C4S','C5E','C5N','C5S'))
+ax.legend((pVF[0],cVF[0]),('MTD-patient','MTD-control'),loc='upper left')
+
+N3=6
+ind3=np.arange(N3)+1
+width3=0.4
+fig,ax=plt.subplots()
+pBF=ax.bar(ind3,patientBF,width3,color='b')
+cBF=ax.bar(ind3+width3,controlBF,width3,color='g')
+ax.set_ylabel('Max Variance')
+ax.set_ylim(0,2.5)
+ax.set_title(pc+'/'+pc1+'-Maximum Variance-L_bleu-BF')################################
+ax.set_xlabel('Target')
+ax.set_xticks(ind3+width3)
+ax.set_xticklabels(('C4E','C4N','C4S','C5E','C5N','C5S'))
+ax.legend((pBF[0],cBF[0]),('MTD-patient','MTD-control'),loc='upper left')
+
+N4=6
+ind4=np.arange(N4)+1
+width4=0.4
+fig,ax=plt.subplots()
+pMTS=ax.bar(ind4,patientMTS,width4,color='b')
+cMTS=ax.bar(ind4+width4,controlMTS,width4,color='g')
+ax.set_ylabel('Max Variance')
+ax.set_ylim(0,2.5)
+ax.set_title(pc+'/'+pc1+'-Maximum Variance-L_bleu-MTS')################################
+ax.set_xlabel('Target')
+ax.set_xticks(ind4+width4)
+ax.set_xticklabels(('C4E','C4N','C4S','C5E','C5N','C5S'))
+ax.legend((pMTS[0],cMTS[0]),('MTD-patient','MTD-control'),loc='upper left')
+
+MTD_Data=[]
+MTD_Data.append([])
+MTD_Data.append([])
+MTD_Data[0].append([])
+MTD_Data[0].append([])
+MTD_Data[1].append([])
+MTD_Data[1].append([])
+
+for i in xrange(0,6):
+    MTD_Data[0][0].append(VF_Var[i])
+    MTD_Data[0][1].append(BF_Var[i])
+    MTD_Data[1][0].append(VF_Var[i+6])
+    MTD_Data[1][1].append(BF_Var[i+6])
+
+Fscore,DoF=ANOVA(MTD_Data)
+print(MTD_Data)
+print(Fscore,DoF)
+
 """

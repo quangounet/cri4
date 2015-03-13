@@ -17,4 +17,14 @@ def mean_calc(nf,x1,x2,x3,y1,y2,y3,xval1,xval2,xval3,yval1,yval2,yval3):
 	
     return meanX,meanY,sample,X_axis1,X_axis2,X_axis3,Y_axis1,Y_axis2,Y_axis3
 
-
+def mean_calc2(nf,vel1,vel2,vel3,velval1,velval2,velval3):
+    sample,meanvel=[],[]
+    vel_ax1,vel_ax2,vel_ax3=[],[],[]
+    for i in xrange(0,nf):
+        sample.append(Decimal(i)/nf)
+        vel_ax1.append(velval1[sample[i]*len(vel1)])
+        vel_ax2.append(velval2[sample[i]*len(vel2)])        
+        vel_ax3.append(velval3[sample[i]*len(vel3)])
+        meanvel.append(Decimal(vel_ax1[i]+vel_ax2[i]+vel_ax3[i])/3)
+    
+    return sample, meanvel, vel_ax1,vel_ax2,vel_ax3

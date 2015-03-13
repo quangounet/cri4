@@ -1,0 +1,15 @@
+from numpy import *
+from matplotlib.patches import Ellipse
+from pylab import *
+
+plt.figure()
+xy1=(1,1)
+xy2=(1,2)
+xy3=(2,1)
+
+ellipse1=Ellipse(xy1,4,5,10,edgecolor='none',fc='none',lw=1,alpha=0.1)
+ellipse2=Ellipse(xy2,4,5,10,edgecolor='none',fc='none',lw=1,alpha=0.7)
+ellipse3Ellipse(xy3,4,5,10,edgecolor='none',fc='none',lw=1,alpha=0.7)
+ax.add_patch(ellipse1)
+ax.add_patch(ellipse2)
+ax.add_patch(ellipse3)

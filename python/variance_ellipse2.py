@@ -34,8 +34,9 @@ def variance_ellipse(sample,x1,x2,x3,y1,y2,y3,i):
         elif i==2:
             edgecolour='m'
 	else:
-	    edgecolour='0.65'
+	    edgecolour='0.8'
         ellipse=Ellipse(xy,width,height,angle,edgecolor=edgecolour,fc='none',lw=1)
-        ax.add_patch(ellipse)
+        #ax.add_patch(ellipse)
 
-    return variability
+    #return variability
+    return ellipse
